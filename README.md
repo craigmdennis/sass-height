@@ -1,4 +1,4 @@
-# Height Mixin
+# SASS Height Mixins
 Mixins to help calculate heights, line-heights and padding.
 
 ## Demo
