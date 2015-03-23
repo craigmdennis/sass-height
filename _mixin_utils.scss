@@ -1,0 +1,9 @@
+// Round $n to the nearest $m
+@function roundUp($n, $m) {
+  @return round(($n/$m))*$m;
+}
+
+// Get unitless values
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}
