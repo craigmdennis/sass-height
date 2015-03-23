@@ -1,0 +1,24 @@
+{
+  "name": "equal-height-sass",
+  "version": "0.0.1",
+  "homepage": "https://github.com/craigmdennis/height",
+  "authors": [
+    "Craig Dennis <craigmdennis@gmail.com>"
+  ],
+  "description": "Mixins to help calculate heights, line-heights and padding",
+  "main": "application.scss",
+  "keywords": [
+    "sass",
+    "scss",
+    "line-height",
+    "vertical rhythm"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
