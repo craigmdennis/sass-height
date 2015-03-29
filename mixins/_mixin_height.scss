@@ -1,18 +1,18 @@
-@mixin height($font-size, $desired-height, $rem: true, $font-base: 16, $baseline: 4){
-  
+@mixin height($font-size, $desired-height, $rem: true, $padding: 'vertical', $font-base: 16, $baseline: 4){
+
   $font-unit: unit($font-size);
   $font-value: parseInt($font-size) !default;
   $height-unit: unit($desired-height);
   $height-value: parseInt($desired-height) !default;
   $font-base: parseInt($font-base);
   $baseline: parseInt($baseline) !default;
-  
+
   // If rems are enforced
   @if $rem == true {
-    
+
     // Convert the baseline to unitless rems
     $baseline: $baseline/$font-base;
-    
+
     // If the font size is in rems
     @if $font-unit != 'rem' {
       $font-value: $font-value/$font-base;
@@ -22,10 +22,10 @@
       $height-value: $height-value/$font-base;
     }
   }
-  
+
   // If rems are not enforced
   @else if $rem == false {
-    
+
     // If the font size is in rems
     @if $font-unit == 'rem' {
       $font-value: $font-value * $font-base;
@@ -35,29 +35,29 @@
       $height-value: $height-value * $font-base;
     }
   }
-  
+
   @if $height-unit != 'rem' and $height-unit != 'px' {
     @error '#{$height-unit} is not supported!'
   }
-  
+
   @if $font-unit != 'rem' and $font-unit != 'px' {
     @error '#{$font-unit} is not supported!'
   }
-  
+
   // Warn if the font-size is greater than the height
   @if $font-value > $height-value  {
     @warn 'The font size should not exceed the desired height due to negative padding.';
   }
-  
+
   // Calulate the relative, valueless line-height
   $lh: ( roundUp($font-value, $baseline) + $baseline ) / $font-value;
-  
+
   // Calculate the actual px dimensions
   $lh-realised: $font-value * $lh;
-  
+
   // Calculate the remaining space available and halve it
   $offset: ($height-value - $lh-realised)/2;
-  
+
   // Debug
   // rem: $rem;
   // font-value: $font-value;
@@ -67,9 +67,18 @@
   // lh: $lh;
   // lh-realised: $lh-realised;
   // offset: $offset;
-  
+
   line-height: $lh;
   font-size: if($rem, $font-value + rem, $font-size);
-  padding-bottom: if($rem, $offset + rem, $offset + px);
-  padding-top: if($rem, $offset + rem, $offset + px);
+
+  // If all padding is specified we add the shorthand
+  @if $padding == 'all' {
+    padding: if($rem, $offset + rem, $offset + px);
+  }
+
+  // Otherwise it's just top and bottom
+  @else if $padding == 'vertical' {
+    padding-bottom: if($rem, $offset + rem, $offset + px);
+    padding-top: if($rem, $offset + rem, $offset + px);
+  }
 }
