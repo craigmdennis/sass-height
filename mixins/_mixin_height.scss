@@ -71,14 +71,22 @@
   line-height: $lh;
   font-size: if($rem, $font-value + rem, $font-size);
 
-  // If all padding is specified we add the shorthand
-  @if $padding == 'all' {
-    padding: if($rem, $offset + rem, $offset + px);
-  }
+  // Only add padding if the offset is truthy
+  @if $offset > 0 {
 
-  // Otherwise it's just top and bottom
-  @else if $padding == 'vertical' {
-    padding-bottom: if($rem, $offset + rem, $offset + px);
-    padding-top: if($rem, $offset + rem, $offset + px);
+    // Don't add padding desired
+    @if $padding != 'none' or $padding != false {
+
+      // If all padding is specified we add the shorthand
+      @if $padding == 'all' {
+        padding: if($rem, $offset + rem, $offset + px);
+      }
+
+      // Otherwise it's just top and bottom
+      @else if $padding == 'vertical' {
+        padding-bottom: if($rem, $offset + rem, $offset + px);
+        padding-top: if($rem, $offset + rem, $offset + px);
+      }
+    }
   }
 }
