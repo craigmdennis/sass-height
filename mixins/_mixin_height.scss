@@ -6,6 +6,7 @@
   $height-value: parseInt($desired-height) !default;
   $font-base: parseInt($font-base);
   $baseline: parseInt($baseline) !default;
+  $modifier: 0;
 
   // If rems are enforced
   @if $rem == true {
@@ -46,11 +47,17 @@
 
   // Warn if the font-size is greater than the height
   @if $font-value > $height-value  {
-    @warn 'The font size should not exceed the desired height due to negative padding.';
+    @warn 'The font size should not exceed the desired height.';
   }
 
-  // Calulate the relative, valueless line-height
-  $lh: ( roundUp($font-value, $baseline) + $baseline ) / $font-value;
+  // If the overall height is the same as the font base then
+  // it's probably desired so don't step up to the next multiple
+  @if ($height-value > $font-base) or ($height-value > 1) {
+    $modifier: $baseline;
+  }
+
+  // Calculate the relative, valueless line-height
+  $lh: (roundUp($font-value, $baseline) + $modifier) / $font-value;
 
   // Calculate the actual px dimensions
   $lh-realised: $font-value * $lh;
