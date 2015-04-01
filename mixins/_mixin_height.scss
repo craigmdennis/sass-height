@@ -6,13 +6,14 @@
   $height-value: parseInt($desired-height) !default;
   $font-base: parseInt($font-base);
   $baseline: parseInt($baseline) !default;
-  $modifier: 0;
+  $modifier: 4;
 
   // If rems are enforced
   @if $rem == true {
 
     // Convert the baseline to unitless rems
     $baseline: $baseline/$font-base;
+    $modifier: $baseline;
 
     // If the font size is in rems
     @if $font-unit != 'rem' {
@@ -52,8 +53,8 @@
 
   // If the overall height is the same as the font base then
   // it's probably desired so don't step up to the next multiple
-  @if ($height-value > $font-base) or ($height-value > 1) {
-    $modifier: $baseline;
+  @if ($height-value == $font-base) or ($height-value == 1) {
+    $modifier: 0;
   }
 
   // Calculate the relative, valueless line-height
