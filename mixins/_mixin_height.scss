@@ -1,71 +1,100 @@
-$field-border: $celeste;
-$field-placeholder: $iron;
-$legend-size: $t-deadpool;
+@mixin height($font-size, $desired-height, $rem: true, $padding: 'vertical', $font-base: 16, $baseline: 4){
 
-.field {
-  display: flex;
-  border: 1px solid $field-border;
-  border-radius: $radius;
-  background-color: $white;
-  color: $onlight-color;
-  margin-bottom: $baseline/2;
-  overflow: hidden; // For background colour applied by browser autofill
+  $font-unit: unit($font-size);
+  $font-value: parseInt($font-size) !default;
+  $height-unit: unit($desired-height);
+  $height-value: parseInt($desired-height) !default;
+  $font-base: parseInt($font-base);
+  $baseline: parseInt($baseline) !default;
+  $modifier: 4;
 
-  > .field-input {
-    @include height(1rem, 46px); // 48px but we have a 1px border on the parent
-    border: 0;
-    flex-grow: 1;
-    background: none;
-    padding-left: $baseline/2;
+  // If rems are enforced
+  @if $rem == true {
+
+    // Convert the baseline to unitless rems
+    $baseline: $baseline/$font-base;
+    $modifier: $baseline;
+
+    // If the font size is in rems
+    @if $font-unit != 'rem' {
+      $font-value: $font-value/$font-base;
+    }
+    // If the height is in rems
+    @if $height-unit != 'rem' {
+      $height-value: $height-value/$font-base;
+    }
   }
 
-  > label {
-    @include height(13px, 46px); // 48px but we have a 1px border on the parent
-    padding-left: $baseline/2;
-    width: 30%;
-    font-weight: bold;
+  // If rems are not enforced
+  @else if $rem == false {
+
+    // If the font size is in rems
+    @if $font-unit == 'rem' {
+      $font-value: $font-value * $font-base;
+    }
+    // If the height is in rems
+    @if $height-unit == 'rem' {
+      $height-value: $height-value * $font-base;
+    }
   }
-}
 
-.field-input::placeholder {
-  color: $field-placeholder;
-}
-
-.field-btn {
-  display: flex;
-  white-space: nowrap;
-  margin: $baseline/4;
-  width: $baseline*3;
-}
-
-.field.-int {
-  width: $baseline*2;
-  text-align: center;
-}
-
-.fieldset > .field {
-  margin-bottom: 0;
-}
-
-.legend {
-  font-weight: bold;
-  @include height($legend-size, 24px);
-  margin-bottom: 0;
-
-  + p {
-    margin-top: 0;
+  @if $height-unit != 'rem' and $height-unit != 'px' {
+    @error '#{$height-unit} is not supported!'
   }
-}
 
-// Check boxes
-.checkbox {
-  display: block;
-  position: relative;
-  padding-left: $baseline;
-  margin-bottom: $baseline/2;
-}
+  @if $font-unit != 'rem' and $font-unit != 'px' {
+    @error '#{$font-unit} is not supported!'
+  }
 
-.checkbox > input {
-  @include vcenter;
-  left: 0;
+  // Warn if the font-size is greater than the height
+  @if $font-value > $height-value  {
+    @warn 'The font size should not exceed the desired height.';
+  }
+
+  // If the overall height is the same as the font base then
+  // it's probably desired so don't step up to the next multiple
+  @if ($height-value == $font-base) or ($height-value == 1) {
+    $modifier: 0;
+  }
+
+  // Calculate the relative, valueless line-height
+  $lh: (roundUp($font-value, $baseline) + $modifier) / $font-value;
+
+  // Calculate the actual px dimensions
+  $lh-realised: $font-value * $lh;
+
+  // Calculate the remaining space available and halve it
+  $offset: ($height-value - $lh-realised)/2;
+
+  // Debug
+  // rem: $rem;
+  // font-value: $font-value;
+  // font-unit: $font-unit;
+  // height-value: $height-value;
+  // height-unit: $height-unit;
+  // lh: $lh;
+  // lh-realised: $lh-realised;
+  // offset: $offset;
+
+  line-height: $lh;
+  font-size: if($rem, $font-value + rem, $font-size);
+
+  // Only add padding if the offset is truthy
+  @if $offset > 0 {
+
+    // Don't add padding desired
+    @if $padding != 'none' or $padding != false {
+
+      // If all padding is specified we add the shorthand
+      @if $padding == 'all' {
+        padding: if($rem, $offset + rem, $offset + px);
+      }
+
+      // Otherwise it's just top and bottom
+      @else if $padding == 'vertical' {
+        padding-bottom: if($rem, $offset + rem, $offset + px);
+        padding-top: if($rem, $offset + rem, $offset + px);
+      }
+    }
+  }
 }
