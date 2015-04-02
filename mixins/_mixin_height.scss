@@ -1,12 +1,27 @@
-@mixin height($font-size, $desired-height, $rem: true, $padding: 'vertical', $font-base: 16, $baseline: 4){
+@mixin height($font-size, $desired-height, $padding: 'vertical'){
+  
+  $options: (
+    font-base: 16px,
+    rem: true,
+    baseline: 4px,
+    debug: false
+  );
+
+  // Check if there are custom options set
+  @if global-variable-exists(sassheight) {
+    // Merge them with the defaults
+    $options: map-merge($options, $sassheight);
+  }
 
   $font-unit: unit($font-size);
   $font-value: parseInt($font-size) !default;
   $height-unit: unit($desired-height);
   $height-value: parseInt($desired-height) !default;
-  $font-base: parseInt($font-base);
-  $baseline: parseInt($baseline) !default;
-  $modifier: 4;
+  $font-base: parseInt(map-get($options, font-base));
+  $baseline: parseInt(map-get($options, baseline)) !default;
+  $modifier: $baseline !default;
+  $rem: map-get($options, rem);
+  $debug: map-get($options, debug);
 
   // If rems are enforced
   @if $rem == true {
@@ -67,34 +82,34 @@
   $offset: ($height-value - $lh-realised)/2;
 
   // Debug
-  // rem: $rem;
-  // font-value: $font-value;
-  // font-unit: $font-unit;
-  // height-value: $height-value;
-  // height-unit: $height-unit;
-  // lh: $lh;
-  // lh-realised: $lh-realised;
-  // offset: $offset;
+  // Simply output the varaibles as CSS properties
+  // for easy inspection in dev tools.
+  @if $debug {
+    rem-output: $rem;
+    font-value: $font-value;
+    font-unit: $font-unit;
+    height-value: $height-value;
+    height-unit: $height-unit;
+    lh: $lh;
+    lh-realised: $lh-realised;
+    offset: $offset;
+  }
 
-  line-height: $lh;
   font-size: if($rem, $font-value + rem, $font-size);
+  line-height: $lh;
 
   // Only add padding if the offset is truthy
   @if $offset > 0 {
 
-    // Don't add padding desired
-    @if $padding != 'none' or $padding != false {
+    // If all padding is specified we add the shorthand
+    @if $padding == 'all' {
+      padding: if($rem, $offset + rem, $offset + px);
+    }
 
-      // If all padding is specified we add the shorthand
-      @if $padding == 'all' {
-        padding: if($rem, $offset + rem, $offset + px);
-      }
-
-      // Otherwise it's just top and bottom
-      @else if $padding == 'vertical' {
-        padding-bottom: if($rem, $offset + rem, $offset + px);
-        padding-top: if($rem, $offset + rem, $offset + px);
-      }
+    // Otherwise it's just top and bottom
+    @else if $padding == 'vertical' {
+      padding-bottom: if($rem, $offset + rem, $offset + px);
+      padding-top: if($rem, $offset + rem, $offset + px);
     }
   }
 }
