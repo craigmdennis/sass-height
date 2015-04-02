@@ -9,7 +9,7 @@ Mixins to help calculate heights, line-heights and padding.
 ## Configuration
 You can override any of the defaults by adding a `$sassheight` map object.
 
-```scss
+```sass
 $sassheight: (
   font-base: 16px, // must be a px value
   rem: true, // output as rem (true) or px (false)
