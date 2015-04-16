@@ -18,6 +18,33 @@ $sassheight: (
 );
 ```
 
+## Useage
+
+#### Font size and line-height
+Return a font-size in rems and a unitless line-height equivalent to 16px. It uses the defaults listed above.
+
+```sass
+.type {
+  @include height( 12px );
+}
+```
+
+#### Set an arbitrary height
+Return a font-size in rems, a unitless line-height equivalent to 16px **and** top and bottom padding (in rems) equivalent to 10px each (10 + 10 + 16 = 36).
+
+```sass
+.type {
+  @include height( 12px, 36px );
+}
+
+#### Padding all the way around
+The same as the previous example but this will add `padding` to all sides rather than just `padding-top:` and `padding-bottom`.
+
+```sass
+.type {
+  @include height( 12px, 36px, 'all' );
+}
+
 ## Precision
 You need to set the SASS decimal place precision to `7` to get the correct rounding in all browsers.
 
