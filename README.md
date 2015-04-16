@@ -18,7 +18,7 @@ $sassheight: (
 );
 ```
 
-## Useage
+## Usage
 
 #### Font size and line-height
 Return a font-size in rems and a unitless line-height equivalent to 16px. It uses the defaults listed above.
