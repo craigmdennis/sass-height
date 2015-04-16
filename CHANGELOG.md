@@ -2,14 +2,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0] - 2015-04-15
+### Added
+- Include some examples in the readme
+
+### Changed
+- Allow use of a single, font-size parameter and default to using the next multiple of the baseline to calculate line-height.
+
+
 ## [1.3.1] - 2015-04-05
 ### Changed
 - Namespace the variables to avoid collisions.
+
 
 ## [1.3.0] - 2015-04-02
 ### Added
 - Changelog
 - Configuration options to override defaults. Useful if you want to output `px` in a separate stylesheet.
+
 
 ## [1.2.0] - 2015-03-31
 ### Changed
