@@ -1,4 +1,4 @@
-@mixin height($sh-fontsize, $sh-desiredheight, $sh-padding: 'vertical'){
+@mixin height($sh-fontsize, $sh-desiredheight: false, $sh-padding: 'vertical'){
 
   $sh-options: (
     font-base: 16px,
@@ -15,8 +15,8 @@
 
   $sh-fontunit: unit($sh-fontsize);
   $sh-fontvalue: parseInt($sh-fontsize) !default;
-  $sh-heightunit: unit($sh-desiredheight);
-  $sh-heightvalue: parseInt($sh-desiredheight) !default;
+  $sh-heightunit: if($sh-desiredheight, unit($sh-desiredheight), false);
+  $sh-heightvalue: if($sh-desiredheight, parseInt($sh-desiredheight), false) !default;
   $sh-fontbase: parseInt(map-get($sh-options, font-base));
   $sh-baseline: parseInt(map-get($sh-options, baseline)) !default;
   $sh-modifier: $sh-baseline !default;
@@ -36,7 +36,7 @@
     }
 
     // If the height is in px
-    @if $sh-heightunit != 'rem' {
+    @if $sh-heightunit != 'rem' and $sh-heightunit != false {
       $sh-heightvalue: $sh-heightvalue/$sh-fontbase;
     }
   }
@@ -54,7 +54,7 @@
     }
   }
 
-  @if $sh-heightunit != 'rem' and $sh-heightunit != 'px' {
+  @if $sh-heightunit != 'rem' and $sh-heightunit != false and $sh-heightunit != 'px' {
     @error '#{$sh-heightunit} is not supported!'
   }
 
@@ -63,14 +63,16 @@
   }
 
   // Warn if the font-size is greater than the height
-  @if $sh-fontvalue > $sh-heightvalue  {
-    @warn 'The font size should not exceed the desired height.';
-  }
-
-  // If the overall height is the same as the font base then
-  // it's probably desired so don't step up to the next multiple
-  @if ($sh-heightvalue == $sh-fontbase) or ($sh-heightvalue == 1) {
-    $sh-modifier: 0;
+  @if $sh-heightunit != false {
+    @if $sh-fontvalue > $sh-heightvalue  {
+      @warn 'The font size should not exceed the desired height.';
+    }
+ 
+    // If the overall height is the same as the font base then
+    // it's probably desired so don't step up to the next multiple
+    @if ($sh-heightvalue == $sh-fontbase) or ($sh-heightvalue == 1) {
+      $sh-modifier: 0;
+    }
   }
 
   // Calculate the relative, valueless line-height
@@ -79,8 +81,15 @@
   // Calculate the actual px dimensions
   $sh-lineheightrealised: $sh-fontvalue * $sh-lineheight;
 
-  // Calculate the remaining space available and halve it
-  $sh-offset: ($sh-heightvalue - $sh-lineheightrealised)/2;
+  // Set the offset to 0 and override if a heigh is set
+  $sh-offset: 0 !default;
+
+  @if $sh-heightunit != false {
+
+    // Calculate the remaining space available and halve it
+    $sh-offset: ($sh-heightvalue - $sh-lineheightrealised)/2;
+
+  }
 
   // Debug
   // Simply output the variables as CSS properties
