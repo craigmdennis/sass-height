@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2015-05-10
+### Added
+- Allow heights to be smaller than the specified font size. The value is still rounded to the nearest baseline multiple.
+
+### Changed
+- Remove warnings about heights not able to be smaller than the specified font size.
+- Specifying horizontal padding should be specified using an integer as it's used as a multiplier
+
+### Deprecated
+- Using 'vertical' and 'all' are no longer valid options for specifying horizontal padding and will be removed in the next version.
+
 ## [1.4.0] - 2015-04-15
 ### Added
 - Include some examples in the readme
