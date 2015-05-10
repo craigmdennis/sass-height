@@ -43,9 +43,11 @@ The same as the previous example but this will add `padding` to all sides rather
 
 ```sass
 .type {
-  @include height( 12px, 36px, 'all' );
+  @include height( 12px, 36px, 1 );
 }
 ```
+
+Any value can be used and will output the calculated padding &times; the multiplier supplied.
 
 ## Precision
 You need to set the SASS decimal place precision to `7` to get the correct rounding in all browsers.
