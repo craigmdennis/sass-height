@@ -1,4 +1,4 @@
-@mixin height($sh-fontsize, $sh-desiredheight: false, $sh-padding: 'vertical'){
+@mixin height($sh-fontsize, $sh-desiredheight: false, $sh-paddingmultiplier: false ) {
 
   $sh-options: (
     font-base: 16px,
@@ -54,12 +54,16 @@
     }
   }
 
-  @if $sh-heightunit != 'rem' and $sh-heightunit != false and $sh-heightunit != 'px' {
-    @error '#{$sh-heightunit} is not supported!'
+  @if $sh-heightunit != 'rem' and $sh-heightunit != false and $sh-heightunit != 'px' and $sh-heightunit != '' {
+    @error '#{$sh-heightunit} values are not supported for font-sizes.'
   }
 
-  @if $sh-fontunit != 'rem' and $sh-fontunit != 'px' {
-    @error '#{$sh-fontunit} is not supported!'
+  @else if $sh-fontunit != 'rem' and $sh-fontunit != 'px' and $sh-fontunit != '' {
+    @error '#{$sh-fontunit} values are not supported for heights.'
+  }
+
+  @else if $sh-fontunit == '' or $sh-heightunit == '' {
+    @error 'Unitless values are not supported.'
   }
 
   // If a height has been specified
@@ -116,15 +120,34 @@
   // Only add padding if the offset is truthy
   @if $sh-offset > 0 {
 
-    // If all padding is specified we add the shorthand
-    @if $sh-padding == 'all' {
-      padding: if($sh-rem, $sh-offset + rem, $sh-offset + px);
-    }
+    // Determine whether rems or pixels
+    $vpadding: if($sh-rem, $sh-offset + rem, $sh-offset + px);
+    padding-bottom: $vpadding;
+    padding-top: $vpadding;
 
-    // Otherwise it's just top and bottom
-    @else if $sh-padding == 'vertical' {
-      padding-bottom: if($sh-rem, $sh-offset + rem, $sh-offset + px);
-      padding-top: if($sh-rem, $sh-offset + rem, $sh-offset + px);
+    // If a multiplier is set
+    @if $sh-paddingmultiplier {
+
+      // If a multiplier is a number
+      @if type-of($sh-paddingmultiplier) == number {
+
+        // Use the number for the left and right padding
+        $hpadding: if($sh-rem, ($sh-offset * $sh-paddingmultiplier) + rem, ($sh-offset * $sh-paddingmultiplier) + px);
+        padding-left: $hpadding;
+        padding-right: $hpadding;
+      }
+
+      // Deprecated
+      @if $sh-paddingmultiplier == 'all' {
+        @warn 'Using \'all\' for padding is deprecated. Use a multiplier number instead.';
+        padding-left: $vpadding;
+        padding-right: $vpadding;
+      }
+
+            // Warn if not supported
+      @else {
+        @warn '#{$sh-paddingmultiplier} is not valid as a padding multiplier. Please use an number.';
+      }
     }
   }
 }
