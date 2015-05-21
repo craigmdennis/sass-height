@@ -1,5 +1,5 @@
-# SASS Height Mixins
-Mixins to help calculate heights, line-heights and padding.
+# SASS Height
+Mixin to help calculate heights, line-heights and padding.
 
 ## Installation
 

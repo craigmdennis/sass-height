@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.1] - 2015-05-21
+### Changed
+- Fix padding multiplier warning being incorrectly triggered.
+
 ## [1.5.0] - 2015-05-10
 ### Added
 - Allow heights to be smaller than the specified font size. The value is still rounded to the nearest baseline multiple.

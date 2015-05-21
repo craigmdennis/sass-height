@@ -138,7 +138,7 @@
       }
 
       // Deprecated
-      @if $sh-paddingmultiplier == 'all' {
+      @else if $sh-paddingmultiplier == 'all' {
         @warn 'Using \'all\' for padding is deprecated. Use a multiplier number instead.';
         padding-left: $vpadding;
         padding-right: $vpadding;
