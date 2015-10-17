@@ -4,7 +4,7 @@ Mixin to help calculate heights, line-heights and padding.
 ## Installation
 
 1. `bower install sass-height --save-dev`
-2. `@import "/bower_components/sass-height/application";` in your main `.scss` file.
+2. `@import "/bower_components/sass-height/height";` in your main `.scss` file.
 
 ## Configuration
 You can override any of the defaults by adding a `$sassheight` map object.
@@ -38,16 +38,23 @@ Return a font-size in rems, a unitless line-height equivalent to 16px **and** to
 }
 ```
 
-#### Padding all the way around
-The same as the previous example but this will add `padding` to all sides rather than just `padding-top:` and `padding-bottom`.
+#### Line height smaller than the font-size
+The same as the previous example but this will have a smaller line-height resulting in text very close together
 
 ```sass
 .type {
-  @include height( 12px, 36px, 1 );
+  @include height( 36px, 32px);
 }
 ```
 
-Any value can be used and will output the calculated padding &times; the multiplier supplied.
+#### New in 2.0: Modify the baseline on-the-fly
+This will round up to the next multiple of 8; just for the class this is called upon.
+
+```sass
+.type {
+  @include height( 32px, auto, 8 );
+}
+```
 
 ## Precision
 You need to set the SASS decimal place precision to `7` to get the correct rounding in all browsers.

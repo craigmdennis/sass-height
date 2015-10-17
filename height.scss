@@ -1,4 +1,7 @@
-@mixin height($sh-fontsize, $sh-desiredheight: false, $sh-paddingmultiplier: false ) {
+@include 'functions/parseint'
+@include 'functions/roundup'
+
+@mixin height($sh-fontsize, $sh-desiredheight: auto, $sh-baselineoverride: false ) {
 
   $sh-options: (
     font-base: 16px,
@@ -15,10 +18,15 @@
 
   $sh-fontunit: unit($sh-fontsize);
   $sh-fontvalue: parseInt($sh-fontsize) !default;
-  $sh-heightunit: if($sh-desiredheight, unit($sh-desiredheight), false);
-  $sh-heightvalue: if($sh-desiredheight, parseInt($sh-desiredheight), false) !default;
+  $sh-heightunit: if(variable-exists(sh-desiredheight) and $sh-desiredheight != auto, unit($sh-desiredheight), false);
+  $sh-heightvalue: if(variable-exists(sh-desiredheight) and $sh-desiredheight != auto, parseInt($sh-desiredheight), false) !default;
   $sh-fontbase: parseInt(map-get($sh-options, font-base));
-  $sh-baseline: parseInt(map-get($sh-options, baseline)) !default;
+  @if $sh-baselineoverride {
+    $sh-baseline: $sh-baselineoverride !default;
+  }
+  @else {
+    $sh-baseline: parseInt(map-get($sh-options, baseline)) !default;
+  }
   $sh-modifier: $sh-baseline !default;
   $sh-rem: map-get($sh-options, rem);
   $sh-debug: map-get($sh-options, debug);
@@ -124,30 +132,5 @@
     $vpadding: if($sh-rem, $sh-offset + rem, $sh-offset + px);
     padding-bottom: $vpadding;
     padding-top: $vpadding;
-
-    // If a multiplier is set
-    @if $sh-paddingmultiplier {
-
-      // If a multiplier is a number
-      @if type-of($sh-paddingmultiplier) == number {
-
-        // Use the number for the left and right padding
-        $hpadding: if($sh-rem, ($sh-offset * $sh-paddingmultiplier) + rem, ($sh-offset * $sh-paddingmultiplier) + px);
-        padding-left: $hpadding;
-        padding-right: $hpadding;
-      }
-
-      // Deprecated
-      @else if $sh-paddingmultiplier == 'all' {
-        @warn 'Using \'all\' for padding is deprecated. Use a multiplier number instead.';
-        padding-left: $vpadding;
-        padding-right: $vpadding;
-      }
-
-            // Warn if not supported
-      @else {
-        @warn '#{$sh-paddingmultiplier} is not valid as a padding multiplier. Please use an number.';
-      }
-    }
   }
 }
