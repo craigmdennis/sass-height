@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.2] - 2015-10-17
+### Changed
+- Remove duplicate `@import` rules
+- Separate mixin and functions so they can be included in CodePen demo from GitHub
+
 ## [2.0.1] - 2015-10-17
 ### Changed
 - Correctly `@import` partials.
