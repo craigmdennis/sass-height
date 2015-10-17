@@ -1,5 +1,8 @@
-@include 'functions/parseint'
-@include 'functions/roundup'
+@import 'functions/parseint';
+@import 'functions/roundup';
+
+@import 'functions/parseint';
+@import 'functions/roundup';
 
 @mixin height($sh-fontsize, $sh-desiredheight: auto, $sh-baselineoverride: false ) {
 
@@ -18,15 +21,10 @@
 
   $sh-fontunit: unit($sh-fontsize);
   $sh-fontvalue: parseInt($sh-fontsize) !default;
-  $sh-heightunit: if(variable-exists(sh-desiredheight) and $sh-desiredheight != auto, unit($sh-desiredheight), false);
-  $sh-heightvalue: if(variable-exists(sh-desiredheight) and $sh-desiredheight != auto, parseInt($sh-desiredheight), false) !default;
+  $sh-heightunit: if( variable-exists(sh-desiredheight) and $sh-desiredheight != auto, unit($sh-desiredheight), false );
+  $sh-heightvalue: if( variable-exists(sh-desiredheight) and $sh-desiredheight != auto, parseInt($sh-desiredheight), false ) !default;
   $sh-fontbase: parseInt(map-get($sh-options, font-base));
-  @if $sh-baselineoverride {
-    $sh-baseline: $sh-baselineoverride !default;
-  }
-  @else {
-    $sh-baseline: parseInt(map-get($sh-options, baseline)) !default;
-  }
+  $sh-baseline: if( $sh-baselineoverride, $sh-baselineoverride, parseInt(map-get($sh-options, baseline)) ) !default;
   $sh-modifier: $sh-baseline !default;
   $sh-rem: map-get($sh-options, rem);
   $sh-debug: map-get($sh-options, debug);

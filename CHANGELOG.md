@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2015-10-17
+### Changed
+- Correctly `@import` partials.
+
+### Changed
+- Renamed files
+- Simplify folder structure
+
 ## [2.0.0] - 2015-10-17
 ### Added
 - Allow option to override the baseline on a per style basis.
@@ -9,6 +17,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Renamed files
 - Simplify folder structure
+
+## Fixed
+- Fixed issue #9
 
 ### Breaking Changes
 - The third parameter is now a baseline override (int) and will not add extra padding.
