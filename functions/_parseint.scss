@@ -1,0 +1,4 @@
+// Get unitless values
+@function parseInt($n) {
+  @return $n / ($n * 0 + 1);
+}

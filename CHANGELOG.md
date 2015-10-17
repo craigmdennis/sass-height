@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2015-10-17
+### Added
+- Allow option to override the baseline on a per style basis.
+
+### Changed
+- Renamed files
+- Simplify folder structure
+
+### Breaking Changes
+- The third parameter is now a baseline override (int) and will not add extra padding.
+
 ## [1.5.1] - 2015-05-21
 ### Changed
 - Fix padding multiplier warning being incorrectly triggered.
