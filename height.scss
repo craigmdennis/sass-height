@@ -1,9 +1,6 @@
 @import 'functions/parseint';
 @import 'functions/roundup';
 
-@import 'functions/parseint';
-@import 'functions/roundup';
-
 @mixin height($sh-fontsize, $sh-desiredheight: auto, $sh-baselineoverride: false ) {
 
   $sh-options: (
