@@ -114,14 +114,14 @@
     sh-offset: $sh-offset;
   }
 
-  font-size: if($sh-rem, $sh-fontvalue + rem, $sh-fontsize);
+  font-size: if($sh-rem, $sh-fontvalue * 1rem, $sh-fontsize);
   line-height: $sh-lineheight;
 
   // Only add padding if the offset is truthy
   @if $sh-offset > 0 {
 
     // Determine whether rems or pixels
-    $vpadding: if($sh-rem, $sh-offset + rem, $sh-offset + px);
+    $vpadding: if($sh-rem, $sh-offset * 1rem, $sh-offset * 1px);
     padding-bottom: $vpadding;
     padding-top: $vpadding;
   }
