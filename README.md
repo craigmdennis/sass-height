@@ -2,14 +2,20 @@
 Mixin to help calculate heights, line-heights and padding.
 
 ## Installation
+Reference the path relative to your main `.scss` file
 
+#### Bower
 1. `bower install sass-height --save-dev`
-2. `@import "/bower_components/sass-height/height";` in your main `.scss` file.
+2. `@import "../../bower_components/sass-height/sass-height";`
+
+1. `npm install sass-height --save-dev`
+2. `@import "../../node_modules/sass-height/sass-height";`
 
 ## Configuration
 You can override any of the defaults by adding a `$sassheight` map object.
 
 ```sass
+// Defaults:
 $sassheight: (
   font-base: 16px, // must be a px value
   rem: true, // output as rem (true) or px (false)

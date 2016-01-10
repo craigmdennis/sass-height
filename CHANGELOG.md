@@ -4,8 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.0.5] - 2016-01-10
 ### Fixed
-- Changed names for consistency with package managers
 - Fix #18: Correctly parse the px value
+
+### Changed
+- Changed names for consistency with package managers
+- Update the readme to reflect npm installation
 
 ## [2.0.4] - 2015-11-27
 ### Fixed
