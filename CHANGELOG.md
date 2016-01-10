@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.5] - 2016-01-10
+### Fixed
+- Changed names for consistency with package managers
+
 ## [2.0.4] - 2015-11-27
 ### Fixed
 - Add package.json
