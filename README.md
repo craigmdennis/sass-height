@@ -8,6 +8,7 @@ Reference the path relative to your main `.scss` file
 1. `bower install sass-height --save-dev`
 2. `@import "../../bower_components/sass-height/sass-height";`
 
+#### NPM
 1. `npm install sass-height --save-dev`
 2. `@import "../../node_modules/sass-height/sass-height";`
 
