@@ -18,7 +18,7 @@
   $sh-heightunit: if( variable-exists(sh-desiredheight) and $sh-desiredheight != auto, unit($sh-desiredheight), false );
   $sh-heightvalue: if( variable-exists(sh-desiredheight) and $sh-desiredheight != auto, parseInt($sh-desiredheight), false ) !default;
   $sh-fontbase: parseInt(map-get($sh-options, font-base));
-  $sh-baseline: if( $sh-baselineoverride, $sh-baselineoverride, parseInt(map-get($sh-options, baseline)) ) !default;
+  $sh-baseline: parseInt( if( $sh-baselineoverride, $sh-baselineoverride, map-get($sh-options, baseline) ) ) !default;
   $sh-modifier: $sh-baseline !default;
   $sh-rem: map-get($sh-options, rem);
   $sh-debug: map-get($sh-options, debug);
@@ -114,14 +114,14 @@
     sh-offset: $sh-offset;
   }
 
-  font-size: if($sh-rem, $sh-fontvalue * 1rem, $sh-fontsize);
+  font-size: if($sh-rem, $sh-fontvalue + rem, $sh-fontsize);
   line-height: $sh-lineheight;
 
   // Only add padding if the offset is truthy
   @if $sh-offset > 0 {
 
     // Determine whether rems or pixels
-    $vpadding: if($sh-rem, $sh-offset * 1rem, $sh-offset * 1px);
+    $vpadding: if($sh-rem, $sh-offset + rem, $sh-offset * 1px);
     padding-bottom: $vpadding;
     padding-top: $vpadding;
   }
