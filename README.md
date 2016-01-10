@@ -50,7 +50,7 @@ The same as the previous example but this will have a smaller line-height result
 
 ```sass
 .type {
-  @include height( 36px, 32px);
+  @include height( 36px, 32px );
 }
 ```
 
@@ -59,7 +59,7 @@ This will round up to the next multiple of 8; just for the class this is called 
 
 ```sass
 .type {
-  @include height( 32px, auto, 8 );
+  @include height( 32px, auto, 8px );
 }
 ```
 
