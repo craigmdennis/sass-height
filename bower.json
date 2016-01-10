@@ -1,12 +1,12 @@
 {
-  "name": "equal-height-sass",
-  "version": "2.0.4",
+  "name": "sass-height",
+  "version": "2.0.5",
   "homepage": "https://github.com/craigmdennis/sass-height",
   "authors": [
     "Craig Dennis <craigmdennis@gmail.com>"
   ],
   "description": "Mixin to help calculate heights, line-heights and padding",
-  "main": "height.scss",
+  "main": "sass-height.scss",
   "keywords": [
     "sass",
     "scss",
