@@ -7,7 +7,6 @@
     "Craig Dennis <craigmdennis@gmail.com>"
   ],
   "description": "Mixin to help calculate heights, line-heights and padding",
-  "main": "sass-height.scss",
   "keywords": [
     "sass",
     "scss",
