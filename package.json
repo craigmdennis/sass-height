@@ -2,16 +2,17 @@
   "name": "sass-height",
   "version": "2.0.6",
   "homepage": "https://github.com/craigmdennis/sass-height",
+  "main": "index.es6",
   "authors": [
     "Craig Dennis <craigmdennis@gmail.com>"
   ],
   "description": "Mixin to help calculate heights, line-heights and padding",
-  "main": "sass-height.scss",
   "keywords": [
     "sass",
     "scss",
     "line-height",
-    "vertical rhythm"
+    "vertical rhythm",
+    "eyeglass-module"
   ],
   "license": "MIT",
   "ignore": [
@@ -20,5 +21,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "eyeglass": {
+    "needs": "*",
+    "exports": "eyeglass-exports.es6"
+  }
 }
